@@ -33,6 +33,15 @@ export class HomePage {
               fontSize: 15
             }
           ]
+        },
+        {
+          style: 'tableExample',
+          table: {
+            body: [
+              ['Column 1', 'Column 2', 'Column 3'],
+              ['One value goes here', 'Another one here', 'OK?']
+            ]
+          }
         }
       ]
     };
