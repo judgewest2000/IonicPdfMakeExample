@@ -15,8 +15,13 @@ export class HomePage {
 
   }
 
-  createPdf(){
-    var docDefinition = {
+  createPdf() {
+
+    let someTableBodyItemsInjectedInline = ['Inline value goes here', 'Another one here', 'Wow']
+
+    let someTableBodyItemsInjectedAfterwards = ['Afterwards value goes here', 'Another one here', 'Wowza']
+
+    let docDefinition = {
       content: [
         'paragraph 1',
         'paragraph 2',
@@ -38,13 +43,19 @@ export class HomePage {
           style: 'tableExample',
           table: {
             body: [
-              ['Column 1', 'Column 2', 'Column 3'],
-              ['One value goes here', 'Another one here', 'OK?']
+              ...[['Column 1', 'Column 2', 'Column 3'],
+              ['One value goes here', 'Another one here', 'OK?']],
+              //THIS IS INLINE INJECTION USING THE SPREAD SYNTAX
+              ...[someTableBodyItemsInjectedInline]
             ]
           }
         }
       ]
     };
+
+    //THIS IS AFTER-THE-EVENT INJECTION USING THE SPREAD SYNTAX
+    (docDefinition.content as any[])[3].table.body = [...(docDefinition.content as any[])[3].table.body, ...[someTableBodyItemsInjectedAfterwards]];
+
     pdfMake.createPdf(docDefinition).download('optionalName.pdf');
   }
 
