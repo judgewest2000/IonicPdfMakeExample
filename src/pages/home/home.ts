@@ -17,9 +17,15 @@ export class HomePage {
 
   createPdf() {
 
-    let someTableBodyItemsInjectedInline = ['Inline value goes here', 'Another one here', 'Wow']
+    let someTableBodyItemsInjectedInline = [
+      ['Inline value goes here', 'Another one here', 'Wow'],
+      ['Second inline value goes here', 'Another one here', 'Wow']
+    ];
 
-    let someTableBodyItemsInjectedAfterwards = ['Afterwards value goes here', 'Another one here', 'Wowza']
+    let someTableBodyItemsInjectedAfterwards = [
+      ['Afterwards value goes here', 'Another one here', 'Wowza'],
+      ['Second afterwards value goes here', 'Another one here', 'Wowza']
+    ];
 
     let docDefinition = {
       content: [
@@ -46,7 +52,7 @@ export class HomePage {
               ...[['Column 1', 'Column 2', 'Column 3'],
               ['One value goes here', 'Another one here', 'OK?']],
               //THIS IS INLINE INJECTION USING THE SPREAD SYNTAX
-              ...[someTableBodyItemsInjectedInline]
+              ...someTableBodyItemsInjectedInline
             ]
           }
         }
@@ -54,7 +60,7 @@ export class HomePage {
     };
 
     //THIS IS AFTER-THE-EVENT INJECTION USING THE SPREAD SYNTAX
-    (docDefinition.content as any[])[3].table.body = [...(docDefinition.content as any[])[3].table.body, ...[someTableBodyItemsInjectedAfterwards]];
+    (docDefinition.content as any[])[3].table.body = [...(docDefinition.content as any[])[3].table.body, ...someTableBodyItemsInjectedAfterwards];
 
     pdfMake.createPdf(docDefinition).download('optionalName.pdf');
   }
